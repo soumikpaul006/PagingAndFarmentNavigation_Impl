@@ -7,6 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.codegalaxy.pagingandbottomnavigationimpl.R
 import com.codegalaxy.pagingandbottomnavigationimpl.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +24,6 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var backPressedTime:Long=0
 
-    private var currentFragment:String="ListFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -30,47 +35,40 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navHostFragment=childFragmentManager.findFragmentById(R.id.home_nav_host) as NavHostFragment
+        val navController=navHostFragment.navController
 
-        replaceFragment(ListFragment(),"ListFragment")//initial loads the list fragment
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.menu_list -> {
-                    replaceFragment(ListFragment(),"ListFragment")
-                    currentFragment="ListFragment"
-                }
-                R.id.menu_profile -> {
-                    replaceFragment(ProfileFragment(),"ProfileFragment")
-                    currentFragment="ProfileFragment"
-                }
-            }
-            true
-        }
+        binding.bottomNavigationView.setupWithNavController(navController)
+
+//        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.menu_list -> {
+//                    navController.navigate(R.id.listFragment)
+//                }
+//                R.id.menu_profile -> {
+//                    navController.navigate(R.id.profileFragment)
+//                }
+//            }
+//            true
+//        }
 
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-
                 override fun handleOnBackPressed() {
-                    if(currentFragment=="ListFragment")
-                    {
-                        handleBackButton()
-                    }
-                    else if(currentFragment=="ProfileFragment"){
-                        replaceFragment(ListFragment(),"ListFragment")
-                        currentFragment="ListFragment"
+                    val currentDestination = navController.currentDestination?.id
+                    when (currentDestination) {
+                        R.id.listFragment -> handleBackButton()
+                        R.id.profileFragment -> navController.navigate(R.id.profileFragment)
                     }
                 }
             })
     }
 
-    private fun replaceFragment(fragment: Fragment,tag:String) {
 
-        childFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container_view, fragment,tag)
-            .commit()
-    }
+
+
 
     private fun handleBackButton()
     {

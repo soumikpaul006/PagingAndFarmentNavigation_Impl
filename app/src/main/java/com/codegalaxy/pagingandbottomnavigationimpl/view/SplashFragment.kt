@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.codegalaxy.pagingandbottomnavigationimpl.R
 import com.codegalaxy.pagingandbottomnavigationimpl.databinding.FragmentSplashBinding
@@ -18,6 +21,7 @@ import kotlinx.coroutines.launch
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,13 +33,12 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = Navigation.findNavController(requireActivity(), R.id.fragment_container)
+
         lifecycleScope.launch {
             delay(2000)
 
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment())
-                .commit()
+            navController.navigate(R.id.action_splashFragment_to_homeFragment)
         }
     }
 }

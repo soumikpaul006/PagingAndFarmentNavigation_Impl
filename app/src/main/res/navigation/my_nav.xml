@@ -24,16 +24,16 @@
         tools:layout="@layout/fragment_home">
     </fragment>
 
-    <fragment
-        android:id="@+id/listFragment"
-        android:name="com.codegalaxy.pagingandbottomnavigationimpl.view.ListFragment"
-        android:label="ListFragment"
-        tools:layout="@layout/fragment_list" />
+<!--    <fragment-->
+<!--        android:id="@+id/listFragment"-->
+<!--        android:name="com.codegalaxy.pagingandbottomnavigationimpl.view.ListFragment"-->
+<!--        android:label="ListFragment"-->
+<!--        tools:layout="@layout/fragment_list" />-->
 
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.codegalaxy.pagingandbottomnavigationimpl.view.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+<!--    <fragment-->
+<!--        android:id="@+id/profileFragment"-->
+<!--        android:name="com.codegalaxy.pagingandbottomnavigationimpl.view.ProfileFragment"-->
+<!--        android:label="ProfileFragment"-->
+<!--        tools:layout="@layout/fragment_profile" />-->
 
 </navigation>
