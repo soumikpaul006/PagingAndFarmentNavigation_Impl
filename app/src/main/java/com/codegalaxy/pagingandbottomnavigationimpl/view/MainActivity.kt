@@ -2,6 +2,8 @@ package com.codegalaxy.pagingandbottomnavigationimpl.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.codegalaxy.pagingandbottomnavigationimpl.R
 import com.codegalaxy.pagingandbottomnavigationimpl.databinding.ActivityMainBinding
 

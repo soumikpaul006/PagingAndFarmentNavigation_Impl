@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.codegalaxy.pagingandbottomnavigationimpl.databinding.FragmentListBinding
 import com.codegalaxy.pagingimpldec16.view.ProductAdapter
 import com.codegalaxy.pagingimpldec16.viewmodel.ProductViewModel
@@ -35,6 +36,22 @@ class ListFragment : Fragment() {
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                // Check if scrolled to the end
+                if (lastVisibleItemPosition == totalItemCount - 1) {
+                    binding.endOfListTextView.isVisible = true
+                } else {
+                    binding.endOfListTextView.isVisible = false
+                }
+            }
+        })
 
         lifecycleScope.launch {
             viewModel.products.collectLatest { pagingData ->

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.codegalaxy.pagingandbottomnavigationimpl.R
 import com.codegalaxy.pagingandbottomnavigationimpl.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
